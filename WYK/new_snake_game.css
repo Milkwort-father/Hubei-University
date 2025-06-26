@@ -3,9 +3,9 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    min-height: 90vh;
+    min-height: 100vh;
     margin: 0;
-    padding: 8px;
+    padding: 10px;
     background-color: #222;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -75,7 +75,7 @@ body {
     background-color: #2196F3;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 9px;
     margin: 5px;
     transition: all 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -88,8 +88,8 @@ body {
 
 @media (max-width: 480px) {
     #gameCanvas {
-        width: 270px;
-        height: 270px;
+        width: 275px;
+        height: 275px;
     }
     
     .direction-buttons button {
