@@ -42,8 +42,11 @@ let direction = { x: 0, y: 0 };
 // 食物的位置
 let food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
 
-// 游戏速度（毫秒）
+// 游戏状态和速度
+let gameRunning = false;
+let gamePaused = false;
 const gameSpeed = 100;
+let gameLoopId;
 
 // 绘制函数
 function draw() {
@@ -117,9 +120,11 @@ function update() {
 
 // 游戏循环
 function gameLoop() {
-    update();
-    draw();
-    setTimeout(gameLoop, gameSpeed);
+    if (!gamePaused) {
+        update();
+        draw();
+    }
+    gameLoopId = setTimeout(gameLoop, gameSpeed);
 }
 
 // 监听键盘事件
@@ -140,14 +145,77 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// 初始化游戏
+// 按钮事件监听
+document.getElementById('startBtn').addEventListener('click', () => {
+    if (!gameRunning) {
+        gameRunning = true;
+        gamePaused = false;
+        gameLoop();
+    } else {
+        gamePaused = !gamePaused;
+        document.getElementById('pauseBtn').textContent = gamePaused ? '继续' : '暂停';
+    }
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+    if (gameRunning) {
+        gamePaused = !gamePaused;
+        this.textContent = gamePaused ? '继续' : '暂停';
+    }
+});
+
+// 方向按钮控制
+document.getElementById('upBtn').addEventListener('click', () => {
+    if (direction.y !== 1) direction = { x: 0, y: -1 };
+});
+
+document.getElementById('downBtn').addEventListener('click', () => {
+    if (direction.y !== -1) direction = { x: 0, y: 1 };
+});
+
+document.getElementById('leftBtn').addEventListener('click', () => {
+    if (direction.x !== 1) direction = { x: -1, y: 0 };
+});
+
+document.getElementById('rightBtn').addEventListener('click', () => {
+    if (direction.x !== -1) direction = { x: 1, y: 0 };
+});
+
+// 触摸事件支持
+const touchHandler = (e) => {
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+    const canvasRect = canvas.getBoundingClientRect();
+    const centerX = canvasRect.left + canvas.width / 2;
+    const centerY = canvasRect.top + canvas.height / 2;
+    
+    const diffX = touchX - centerX;
+    const diffY = touchY - centerY;
+    
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // 水平滑动
+        if (diffX > 0 && direction.x !== -1) direction = { x: 1, y: 0 };
+        else if (diffX < 0 && direction.x !== 1) direction = { x: -1, y: 0 };
+    } else {
+        // 垂直滑动
+        if (diffY > 0 && direction.y !== -1) direction = { x: 0, y: 1 };
+        else if (diffY < 0 && direction.y !== 1) direction = { x: 0, y: -1 };
+    }
+};
+
+canvas.addEventListener('touchstart', touchHandler);
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    touchHandler(e);
+});
+
 // 定时发送自己的蛇的位置给服务器
 setInterval(() => {
-    socket.send(JSON.stringify({
-        type: 'snakeUpdate',
-        id: Date.now(), // 简单用时间戳作为 ID
-        body: snake
-    }));
+    if (gameRunning && !gamePaused) {
+        socket.send(JSON.stringify({
+            type: 'snakeUpdate',
+            id: Date.now(), // 简单用时间戳作为 ID
+            body: snake
+        }));
+    }
 }, gameSpeed);
-
-gameLoop();
