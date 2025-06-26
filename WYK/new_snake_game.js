@@ -26,10 +26,10 @@ socket.onmessage = (event) => {
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// 设置画布尺寸 - 适配iPhone X (375x812)
+// 设置画布尺寸 - 适配iPhone6 (375x667)
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-canvas.width = isMobile ? window.innerWidth * 0.9 : 800;
-canvas.height = isMobile ? window.innerHeight * 0.7 : 600;
+canvas.width = isMobile ? 250 : 800;
+canvas.height = isMobile ? 250 : 600;
 
 // 网格大小和格子数量
 const gridSize = 20;
@@ -46,7 +46,7 @@ let food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.rando
 // 游戏状态和速度
 let gameRunning = false;
 let gamePaused = false;
-const gameSpeed = 100;
+const gameSpeed = 100; // 加快游戏速度
 let gameLoopId;
 
 // 绘制函数
@@ -125,7 +125,7 @@ function gameLoop() {
         update();
         draw();
     }
-    gameLoopId = setTimeout(gameLoop, gameSpeed);
+    gameLoopId = setTimeout(gameLoop, 150);
 }
 
 // 监听键盘事件
@@ -182,25 +182,22 @@ document.getElementById('rightBtn').addEventListener('click', () => {
     if (direction.x !== -1) direction = { x: 1, y: 0 };
 });
 
-// 触摸事件支持
+// 触摸事件支持 - 优化响应速度
 const touchHandler = (e) => {
+    e.preventDefault(); // 阻止默认行为提高响应速度
     const touchX = e.touches[0].clientX;
     const touchY = e.touches[0].clientY;
     const canvasRect = canvas.getBoundingClientRect();
-    const centerX = canvasRect.left + canvas.width / 2;
-    const centerY = canvasRect.top + canvas.height / 2;
     
-    const diffX = touchX - centerX;
-    const diffY = touchY - centerY;
+    // 简化计算逻辑
+    const diffX = touchX - (canvasRect.left + canvas.width / 2);
+    const diffY = touchY - (canvasRect.top + canvas.height / 2);
     
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        // 水平滑动
-        if (diffX > 0 && direction.x !== -1) direction = { x: 1, y: 0 };
-        else if (diffX < 0 && direction.x !== 1) direction = { x: -1, y: 0 };
-    } else {
-        // 垂直滑动
-        if (diffY > 0 && direction.y !== -1) direction = { x: 0, y: 1 };
-        else if (diffY < 0 && direction.y !== 1) direction = { x: 0, y: -1 };
+    // 降低灵敏度阈值，使操作更灵敏
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+        direction = diffX > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+    } else if (Math.abs(diffY) > 10) {
+        direction = diffY > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
     }
 };
 
