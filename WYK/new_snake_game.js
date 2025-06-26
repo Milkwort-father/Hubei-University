@@ -26,9 +26,10 @@ socket.onmessage = (event) => {
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// 设置画布尺寸
-canvas.width = 800;
-canvas.height = 600;
+// 设置画布尺寸 - 适配iPhone X (375x812)
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+canvas.width = isMobile ? window.innerWidth * 0.9 : 800;
+canvas.height = isMobile ? window.innerHeight * 0.7 : 600;
 
 // 网格大小和格子数量
 const gridSize = 20;
