@@ -43,10 +43,18 @@ let direction = { x: 0, y: 0 };
 // 食物的位置
 let food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
 
-// 游戏状态和速度
+// 游戏配置常量
+const GAME_CONFIG = {
+    SPEED: 150,
+    GRID_SIZE: 20,
+    SNAKE_COLOR: '#4CAF50',
+    FOOD_COLOR: '#F44336',
+    BG_COLOR: '#222'
+};
+
+// 游戏状态
 let gameRunning = false;
 let gamePaused = false;
-const gameSpeed = 100; // 加快游戏速度
 let gameLoopId;
 
 // 绘制函数
@@ -73,21 +81,7 @@ function draw() {
     ctx.fillStyle = '#F44336';
     ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
 }
-function draw() {
-    // 清除画布
-    ctx.fillStyle = '#222';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 绘制蛇
-    ctx.fillStyle = '#4CAF50';
-    snake.forEach(segment => {
-        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize, gridSize);
-    });
-
-    // 绘制食物
-    ctx.fillStyle = '#F44336';
-    ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
-}
 
 // 更新函数
 function update() {
@@ -158,7 +152,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('pauseBtn').addEventListener('click', () => {
+document.getElementById('pauseBtn').addEventListener('click', function() {
     if (gameRunning) {
         gamePaused = !gamePaused;
         this.textContent = gamePaused ? '继续' : '暂停';
