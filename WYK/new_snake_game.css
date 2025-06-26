@@ -11,4 +11,58 @@ body {
 #gameCanvas {
     border: 2px solid #4CAF50;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.direction-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.direction-buttons button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.direction-buttons #upBtn {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.direction-buttons #leftBtn {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.direction-buttons #downBtn {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.direction-buttons #rightBtn {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#startBtn, #pauseBtn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
