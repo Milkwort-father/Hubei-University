@@ -13,9 +13,14 @@ body {
 
 #gameCanvas {
     border: 2px solid #4CAF50;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     margin: 10px 0;
-    max-width: 100%;
+    width: min(80vw, 80vh);
+    height: min(80vw, 80vh);
+    max-width: 300px;
+    max-height: 300px;
+    min-width: 200px;
+    min-height: 200px;
 }
 
 .controls {
@@ -33,9 +38,9 @@ body {
 }
 
 .direction-buttons button {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
     border-radius: 50%;
     border: none;
     background-color: #4CAF50;
@@ -75,7 +80,7 @@ body {
     background-color: #2196F3;
     color: white;
     border: none;
-    border-radius: 9px;
+    border-radius: 8px;
     margin: 5px;
     transition: all 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -88,13 +93,23 @@ body {
 
 @media (max-width: 480px) {
     #gameCanvas {
-        width: 275px;
-        height: 275px;
+        width: min(90vw, 90vh);
+        height: min(90vw, 90vh);
+        max-width: 250px;
+        max-height: 250px;
     }
+}
+
+@media (orientation: landscape) {
+    #gameCanvas {
+        width: min(70vw, 70vh);
+        height: min(70vw, 70vh);
+    }
+}
     
     .direction-buttons button {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
         font-size: 24px;
     }
     
@@ -103,4 +118,4 @@ body {
         font-size: 16px;
         margin: 8px;
     }
-}
+
