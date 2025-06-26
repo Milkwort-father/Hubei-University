@@ -15,12 +15,12 @@ body {
     border: 2px solid #4CAF50;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     margin: 10px 0;
-    width: min(80vw, 80vh);
-    height: min(80vw, 80vh);
-    max-width: 310px;
-    max-height: 310px;
-    min-width: 200px;
-    min-height: 200px;
+    width: min(90vw, 90vh);
+    height: min(90vw, 90vh);
+    max-width: 350px;
+    max-height: 350px;
+    min-width: 250px;
+    min-height: 250px;
 }
 
 .controls {
@@ -74,6 +74,25 @@ body {
     grid-row: 2;
 }
 
+.score-display {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.difficulty-selector {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.difficulty-selector select {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
 #startBtn, #pauseBtn {
     padding: 12px 24px;
     font-size: 16px;
@@ -93,10 +112,10 @@ body {
 
 @media (max-width: 480px) {
     #gameCanvas {
-        width: min(90vw, 90vh);
-        height: min(90vw, 90vh);
-        max-width: 250px;
-        max-height: 250px;
+        width: min(95vw, 95vh);
+        height: min(95vw, 95vh);
+        max-width: 300px;
+        max-height: 300px;
     }
 }
 
