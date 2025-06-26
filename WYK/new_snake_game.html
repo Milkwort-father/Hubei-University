@@ -9,6 +9,15 @@
 <body>
     <canvas id="gameCanvas"></canvas>
     <div class="controls">
+        <div class="score-display">分数: <span id="score">0</span></div>
+        <div class="difficulty-selector">
+            <label>难度:</label>
+            <select id="difficulty">
+                <option value="150">简单</option>
+                <option value="100">中等</option>
+                <option value="50">困难</option>
+            </select>
+        </div>
         <button id="startBtn">开始游戏</button>
         <button id="pauseBtn">暂停</button>
         <div class="direction-buttons">
