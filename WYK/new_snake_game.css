@@ -14,13 +14,13 @@ body {
 #gameCanvas {
     border: 2px solid #4CAF50;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    margin: 10px 0;
-    width: min(90vw, 90vh);
-    height: min(90vw, 90vh);
-    max-width: 350px;
-    max-height: 350px;
-    min-width: 250px;
-    min-height: 250px;
+    margin: 5px 0;
+    width: min(95vw, 95vh);
+    height: min(95vw, 95vh);
+    max-width: 400px;
+    max-height: 400px;
+    min-width: 280px;
+    min-height: 280px;
 }
 
 .controls {
@@ -94,15 +94,15 @@ body {
 }
 
 #startBtn, #pauseBtn {
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 8px 16px;
+    font-size: 14px;
     background-color: #2196F3;
     color: white;
     border: none;
-    border-radius: 8px;
-    margin: 5px;
+    border-radius: 6px;
+    margin: 3px;
     transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #startBtn:active, #pauseBtn:active {
@@ -112,10 +112,10 @@ body {
 
 @media (max-width: 480px) {
     #gameCanvas {
-        width: min(95vw, 95vh);
-        height: min(95vw, 95vh);
-        max-width: 300px;
-        max-height: 300px;
+        width: min(98vw, 98vh);
+        height: min(98vw, 98vh);
+        max-width: 350px;
+        max-height: 350px;
     }
 }
 
