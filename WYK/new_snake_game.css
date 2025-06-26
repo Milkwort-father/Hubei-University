@@ -3,9 +3,9 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    min-height: 120vh;
+    min-height: 100vh;
     margin: 0;
-    padding: 15px;
+    padding: 10px;
     background-color: #222;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
