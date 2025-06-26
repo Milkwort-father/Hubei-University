@@ -45,12 +45,15 @@ let food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.rando
 
 // 游戏配置常量
 const GAME_CONFIG = {
-    SPEED: 150,
+    SPEED: 150, // 默认速度(简单难度)
     GRID_SIZE: 20,
     SNAKE_COLOR: '#4CAF50',
     FOOD_COLOR: '#F44336',
     BG_COLOR: '#222'
 };
+
+// 游戏分数
+let score = 0;
 
 // 游戏状态
 let gameRunning = false;
@@ -89,13 +92,16 @@ function update() {
     snake.unshift(head);
 
     // 检查是否吃到食物
-    if (head.x === food.x && head.y === food.y) {
-        // 生成新的食物
-        food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
-    } else {
-        // 移除蛇尾
-        snake.pop();
-    }
+if (head.x === food.x && head.y === food.y) {
+    // 生成新的食物
+    food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
+    // 增加分数
+    score += 10;
+    document.getElementById('score').textContent = score;
+} else {
+    // 移除蛇尾
+    snake.pop();
+}
 
     // 检查是否撞到边界或自己
     if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
@@ -143,8 +149,16 @@ document.addEventListener('keydown', (event) => {
 // 按钮事件监听
 document.getElementById('startBtn').addEventListener('click', () => {
     if (!gameRunning) {
+        // 获取选择的难度
+        const difficulty = parseInt(document.getElementById('difficulty').value);
+        GAME_CONFIG.SPEED = difficulty;
+        
+        // 重置游戏状态
         gameRunning = true;
         gamePaused = false;
+        score = 0;
+        document.getElementById('score').textContent = score;
+        
         gameLoop();
     } else {
         gamePaused = !gamePaused;
